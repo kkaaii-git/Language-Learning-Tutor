@@ -1,6 +1,54 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Send, BookOpen, Target, TrendingUp, MessageSquare, Settings, CheckCircle, AlertCircle, Star, BarChart3, Languages } from 'lucide-react';
+// Get React hooks and components from global React object
+const { useState, useEffect, useRef } = React;
 
+// Simple icon components (replacing lucide-react)
+const Send = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M22 2L11 13' }),
+  React.createElement('path', { d: 'M22 2L15 22L11 13L2 9L22 2Z' })
+);
+
+const BookOpen = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z' }),
+  React.createElement('path', { d: 'M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z' })
+);
+
+const Target = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('circle', { cx: 12, cy: 12, r: 10 }),
+  React.createElement('circle', { cx: 12, cy: 12, r: 6 }),
+  React.createElement('circle', { cx: 12, cy: 12, r: 2 })
+);
+
+const TrendingUp = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('polyline', { points: '23 6 13.5 15.5 8.5 10.5 1 18' }),
+  React.createElement('polyline', { points: '17 6 23 6 23 12' })
+);
+
+const MessageSquare = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z' })
+);
+
+const CheckCircle = () => React.createElement('svg', { width: 16, height: 16, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M22 11.08V12a10 10 0 1 1-5.93-9.14' }),
+  React.createElement('polyline', { points: '22 4 12 14.01 9 11.01' })
+);
+
+const BarChart3 = () => React.createElement('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M3 3v18h18' }),
+  React.createElement('path', { d: 'M18 17V9' }),
+  React.createElement('path', { d: 'M13 17V5' }),
+  React.createElement('path', { d: 'M8 17v-3' })
+);
+
+const Languages = () => React.createElement('svg', { width: 12, height: 12, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 2 }, 
+  React.createElement('path', { d: 'M5 8l6 6' }),
+  React.createElement('path', { d: 'M4 14l6-6 2-3' }),
+  React.createElement('path', { d: 'M2 5h12' }),
+  React.createElement('path', { d: 'M7 2h1' }),
+  React.createElement('path', { d: 'M22 22l-5-10-5 10' }),
+  React.createElement('path', { d: 'M14 18h6' })
+);
+
+// Translations
 const TRANSLATIONS = {
   "en-US": {
     "languageTutorTitle": "Language Tutor",
@@ -27,56 +75,14 @@ const TRANSLATIONS = {
     "vocabularyGrowth": "Vocabulary Growth",
     "grammarAccuracy": "Grammar Accuracy",
     "enterLearningGoal": "Enter your learning goal:",
-    "sorryTroubleResponding": "I'm sorry, I'm having trouble responding right now. Let's continue practicing!",
-    "spanishContinue": "¡Sigamos practicando!",
-    "frenchContinue": "Continuons à pratiquer!",
     "keepPracticing": "Let's keep practicing!"
-  },
-  /* LOCALE_PLACEHOLDER_START */
-  "es-ES": {
-    "languageTutorTitle": "Tutor de Idiomas",
-    "lessonMode": "Modo Lección",
-    "chatMode": "Modo Chat",
-    "readyToPractice": "¿Listo para practicar",
-    "startConversationHelp": "¡Inicia una conversación y te ayudaré a aprender con comentarios personalizados!",
-    "englishTranslation": "Traducción al inglés",
-    "tutorThinking": "El tutor está pensando...",
-    "typeMessagePlaceholder": "Escribe tu mensaje en",
-    "progressOverview": "Resumen de Progreso",
-    "messages": "Mensajes:",
-    "vocabulary": "Vocabulario:",
-    "words": "palabras",
-    "accuracy": "Precisión:",
-    "learningGoals": "Objetivos de Aprendizaje",
-    "addGoal": "+ Agregar",
-    "progress": "Progreso",
-    "feedback": "Comentarios",
-    "greatJob": "¡Excelente trabajo!",
-    "smallCorrections": "Pequeñas correcciones:",
-    "tryThis": "Prueba esto:",
-    "learningStats": "Estadísticas de Aprendizaje",
-    "vocabularyGrowth": "Crecimiento del Vocabulario",
-    "grammarAccuracy": "Precisión Gramatical",
-    "enterLearningGoal": "Ingresa tu objetivo de aprendizaje:",
-    "sorryTroubleResponding": "Lo siento, tengo problemas para responder ahora. ¡Sigamos practicando!",
-    "spanishContinue": "¡Sigamos practicando!",
-    "frenchContinue": "Continuons à pratiquer!",
-    "keepPracticing": "¡Sigamos practicando!"
   }
-  /* LOCALE_PLACEHOLDER_END */
 };
 
-const appLocale = '{{APP_LOCALE}}';
-const browserLocale = navigator.languages?.[0] || navigator.language || 'en-US';
-const findMatchingLocale = (locale) => {
-  if (TRANSLATIONS[locale]) return locale;
-  const lang = locale.split('-')[0];
-  const match = Object.keys(TRANSLATIONS).find(key => key.startsWith(lang + '-'));
-  return match || 'en-US';
-};
-const locale = (appLocale !== '{{APP_LOCALE}}') ? findMatchingLocale(appLocale) : findMatchingLocale(browserLocale);
-const t = (key) => TRANSLATIONS[locale]?.[key] || TRANSLATIONS['en-US'][key] || key;
+const locale = 'en-US';
+const t = (key) => TRANSLATIONS[locale]?.[key] || key;
 
+// Main component
 const LanguageTutor = () => {
   const [selectedLanguage, setSelectedLanguage] = useState('spanish');
   const [messages, setMessages] = useState([]);
@@ -113,76 +119,6 @@ const LanguageTutor = () => {
     portuguese: { name: 'Portuguese (Português)', flag: '🇵🇹' },
     chinese: { name: 'Chinese (中文)', flag: '🇨🇳' },
     korean: { name: 'Korean (한국어)', flag: '🇰🇷' }
-  };
-
-  useEffect(() => {
-    scrollToBottom();
-  }, [messages]);
-
-  const scrollToBottom = () => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const getProficiencyColor = (level) => {
-    const colors = {
-      'Beginner': 'text-green-600 bg-green-100',
-      'Intermediate': 'text-yellow-600 bg-yellow-100',
-      'Advanced': 'text-red-600 bg-red-100',
-      'Native': 'text-purple-600 bg-purple-100'
-    };
-    return colors[level] || colors.Beginner;
-  };
-
-  const generateLearningGoals = (level, language) => {
-    const goalsByLevel = {
-      Beginner: {
-        spanish: [
-          'Master basic greetings and introductions',
-          'Learn present tense regular verbs',
-          'Build food and drink vocabulary',
-          'Practice numbers 1-100',
-          'Use basic question words (qué, cómo, dónde)'
-        ],
-        french: [
-          'Master basic greetings (bonjour, bonsoir)',
-          'Learn present tense être and avoir',
-          'Build family and home vocabulary',
-          'Practice French pronunciation',
-          'Use basic question words'
-        ],
-        german: [
-          'Master basic greetings and politeness',
-          'Learn German cases (Nominativ, Akkusativ)',
-          'Build everyday vocabulary',
-          'Practice German pronunciation',
-          'Learn basic sentence structure'
-        ]
-      },
-      Intermediate: {
-        spanish: [
-          'Master past tenses (preterite and imperfect)',
-          'Learn subjunctive mood basics',
-          'Expand professional vocabulary',
-          'Practice complex sentence structures',
-          'Understand cultural expressions'
-        ]
-      }
-    };
-
-    const goals = goalsByLevel[level]?.[language] || goalsByLevel.Beginner.spanish;
-    return goals.slice(0, 3).map((text, index) => ({
-      id: Date.now() + index,
-      text,
-      completed: false,
-      progress: Math.floor(Math.random() * 30)
-    }));
-  };
-
-  const analyzeProficiencyLevel = (messageHistory) => {
-    if (messageHistory.length < 3) return 'Beginner';
-    if (messageHistory.length < 10) return 'Beginner';
-    if (messageHistory.length < 20) return 'Intermediate';
-    return 'Advanced';
   };
 
   // Language response templates
@@ -269,7 +205,6 @@ const LanguageTutor = () => {
 
   // Enhanced feedback generation
   const generateFeedback = (userMessage, language, level) => {
-    const commonWords = userMessage.toLowerCase().split(' ').filter(word => word.length > 2);
     const accuracy = Math.floor(75 + Math.random() * 20); // 75-95%
     
     const feedbackTemplates = {
@@ -320,7 +255,32 @@ const LanguageTutor = () => {
     return translations[response] || "I'm here to help you practice! Keep going!";
   };
 
-  const sendMessage = async () => {
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const getProficiencyColor = (level) => {
+    const colors = {
+      'Beginner': 'text-green-600 bg-green-100',
+      'Intermediate': 'text-yellow-600 bg-yellow-100',
+      'Advanced': 'text-red-600 bg-red-100',
+      'Native': 'text-purple-600 bg-purple-100'
+    };
+    return colors[level] || colors.Beginner;
+  };
+
+  const analyzeProficiencyLevel = (messageHistory) => {
+    if (messageHistory.length < 3) return 'Beginner';
+    if (messageHistory.length < 10) return 'Beginner';
+    if (messageHistory.length < 20) return 'Intermediate';
+    return 'Advanced';
+  };
+
+  const sendMessage = () => {
     if (!currentMessage.trim() || isLoading) return;
 
     const userMessage = {
@@ -385,8 +345,6 @@ const LanguageTutor = () => {
     setMessages([]);
     setFeedback(null);
     setTranslatedMessages(new Set());
-    const newGoals = generateLearningGoals(userProfile.proficiencyLevel, newLang);
-    setLearningGoals(newGoals);
   };
 
   const toggleGoalCompletion = (goalId) => {
@@ -424,290 +382,264 @@ const LanguageTutor = () => {
     }
   };
 
-  return (
-    <div className="flex h-screen bg-gray-50">
-      {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
-        {/* Header */}
-        <div className="bg-white border-b border-gray-200 p-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <div className="flex items-center space-x-2">
-                <BookOpen className="h-6 w-6 text-blue-600" />
-                <h1 className="text-xl font-bold text-gray-800">{t('languageTutorTitle')}</h1>
-              </div>
-              
-              <select 
-                value={selectedLanguage}
-                onChange={(e) => handleLanguageChange(e.target.value)}
-                className="px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              >
-                {Object.entries(languages).map(([code, lang]) => (
-                  <option key={code} value={code}>
-                    {lang.flag} {lang.name}
-                  </option>
-                ))}
-              </select>
-
-              <div className={`px-3 py-1 rounded-full text-sm font-medium ${getProficiencyColor(userProfile.proficiencyLevel)}`}>
-                {userProfile.proficiencyLevel}
-              </div>
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <button
-                onClick={() => setShowLessonMode(!showLessonMode)}
-                className={`px-4 py-2 rounded-md text-sm font-medium transition-colors ${
-                  showLessonMode 
-                    ? 'bg-blue-600 text-white' 
-                    : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
-                }`}
-              >
-                {showLessonMode ? t('lessonMode') : t('chatMode')}
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-4 space-y-4">
-          {messages.length === 0 && (
-            <div className="text-center py-8">
-              <div className="text-4xl mb-4">{languages[selectedLanguage].flag}</div>
-              <h2 className="text-xl font-semibold text-gray-700 mb-2">
-                {t('readyToPractice')} {languages[selectedLanguage].name}?
-              </h2>
-              <p className="text-gray-500">
-                {t('startConversationHelp')}
-              </p>
-            </div>
-          )}
-
-          {messages.map((message) => (
-            <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
-              <div className={`max-w-xs lg:max-w-md px-4 py-2 rounded-lg relative group ${
+  return React.createElement('div', { className: "flex h-screen bg-gray-50" },
+    // Main Chat Area
+    React.createElement('div', { className: "flex-1 flex flex-col" },
+      // Header
+      React.createElement('div', { className: "bg-white border-b border-gray-200 p-4" },
+        React.createElement('div', { className: "flex items-center justify-between" },
+          React.createElement('div', { className: "flex items-center space-x-4" },
+            React.createElement('div', { className: "flex items-center space-x-2" },
+              React.createElement(BookOpen, { className: "h-6 w-6 text-blue-600" }),
+              React.createElement('h1', { className: "text-xl font-bold text-gray-800" }, t('languageTutorTitle'))
+            ),
+            React.createElement('select', {
+              value: selectedLanguage,
+              onChange: (e) => handleLanguageChange(e.target.value),
+              className: "px-3 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+            },
+              Object.entries(languages).map(([code, lang]) => 
+                React.createElement('option', { key: code, value: code }, `${lang.flag} ${lang.name}`)
+              )
+            ),
+            React.createElement('div', {
+              className: `px-3 py-1 rounded-full text-sm font-medium ${getProficiencyColor(userProfile.proficiencyLevel)}`
+            }, userProfile.proficiencyLevel)
+          ),
+          React.createElement('div', { className: "flex items-center space-x-2" },
+            React.createElement('button', {
+              onClick: () => setShowLessonMode(!showLessonMode),
+              className: `px-4 py-2 rounded-md text-sm font-medium transition-colors ${
+                showLessonMode 
+                  ? 'bg-blue-600 text-white' 
+                  : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+              }`
+            }, showLessonMode ? t('lessonMode') : t('chatMode'))
+          )
+        )
+      ),
+      
+      // Messages
+      React.createElement('div', { className: "flex-1 overflow-y-auto p-4 space-y-4" },
+        messages.length === 0 && React.createElement('div', { className: "text-center py-8" },
+          React.createElement('div', { className: "text-4xl mb-4" }, languages[selectedLanguage].flag),
+          React.createElement('h2', { className: "text-xl font-semibold text-gray-700 mb-2" },
+            `${t('readyToPractice')} ${languages[selectedLanguage].name}?`
+          ),
+          React.createElement('p', { className: "text-gray-500" }, t('startConversationHelp'))
+        ),
+        
+        messages.map((message) =>
+          React.createElement('div', {
+            key: message.id,
+            className: `flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`
+          },
+            React.createElement('div', {
+              className: `max-w-xs lg:max-w-md px-4 py-2 rounded-lg relative group ${
                 message.sender === 'user' 
                   ? 'bg-blue-600 text-white' 
-                  : 'bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 transition-colors'
-              } ${message.sender === 'tutor' ? 'cursor-pointer' : ''}`}
-              onClick={message.sender === 'tutor' ? () => toggleMessageTranslation(message.id) : undefined}
-              >
-                {message.sender === 'tutor' && (
-                  <div className="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity">
-                    <Languages className="h-3 w-3 text-gray-400" />
-                  </div>
-                )}
-                <p className="pr-4">
-                  {message.sender === 'tutor' && translatedMessages.has(message.id) 
-                    ? message.englishTranslation || message.text
-                    : message.text
-                  }
-                </p>
-                {message.sender === 'tutor' && translatedMessages.has(message.id) && (
-                  <p className="text-xs mt-1 text-gray-500 italic">
-                    {t('englishTranslation')}
-                  </p>
-                )}
-                <p className={`text-xs mt-1 ${
-                  message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'
-                }`}>
-                  {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
-                </p>
-              </div>
-            </div>
-          ))}
-
-          {isLoading && (
-            <div className="flex justify-start">
-              <div className="bg-white border border-gray-200 rounded-lg px-4 py-2">
-                <div className="flex items-center space-x-2">
-                  <div className="flex space-x-1">
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.1s'}}></div>
-                    <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{animationDelay: '0.2s'}}></div>
-                  </div>
-                  <span className="text-sm text-gray-500">{t('tutorThinking')}</span>
-                </div>
-              </div>
-            </div>
-          )}
-          <div ref={messagesEndRef} />
-        </div>
-
-        {/* Input Area */}
-        <div className="bg-white border-t border-gray-200 p-4">
-          <div className="flex space-x-2">
-            <input
-              type="text"
-              value={currentMessage}
-              onChange={(e) => setCurrentMessage(e.target.value)}
-              onKeyPress={(e) => e.key === 'Enter' && sendMessage()}
-              placeholder={`${t('typeMessagePlaceholder')} ${languages[selectedLanguage].name}...`}
-              className="flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-              disabled={isLoading}
-            />
-            <button
-              onClick={sendMessage}
-              disabled={isLoading || !currentMessage.trim()}
-              className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-            >
-              <Send className="h-5 w-5" />
-            </button>
-          </div>
-        </div>
-      </div>
-
-      {/* Sidebar */}
-      <div className="w-80 bg-white border-l border-gray-200 flex flex-col">
-        {/* Progress Overview */}
-        <div className="p-4 border-b border-gray-200">
-          <h3 className="font-semibold text-gray-800 mb-3 flex items-center">
-            <TrendingUp className="h-5 w-5 mr-2" />
-            {t('progressOverview')}
-          </h3>
-          <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span>{t('messages')}</span>
-              <span className="font-medium">{userProfile.totalMessages}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>{t('vocabulary')}</span>
-              <span className="font-medium">{userProfile.vocabularyCount.size} {t('words')}</span>
-            </div>
-            <div className="flex justify-between text-sm">
-              <span>{t('accuracy')}</span>
-              <span className="font-medium">{userProfile.grammarAccuracy}%</span>
-            </div>
-          </div>
-        </div>
-
-        {/* Learning Goals */}
-        <div className="p-4 border-b border-gray-200">
-          <div className="flex items-center justify-between mb-3">
-            <h3 className="font-semibold text-gray-800 flex items-center">
-              <Target className="h-5 w-5 mr-2" />
-              {t('learningGoals')}
-            </h3>
-            <button
-              onClick={addCustomGoal}
-              className="text-blue-600 hover:text-blue-700 text-sm font-medium"
-            >
-              {t('addGoal')}
-            </button>
-          </div>
-          <div className="space-y-2">
-            {learningGoals.map((goal) => (
-              <div key={goal.id} className="p-2 bg-gray-50 rounded-md">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <p className={`text-sm ${goal.completed ? 'line-through text-gray-500' : 'text-gray-700'}`}>
-                      {goal.text}
-                    </p>
-                    <div className="mt-1">
-                      <div className="flex items-center justify-between text-xs text-gray-500 mb-1">
-                        <span>{t('progress')}</span>
-                        <span>{goal.progress}%</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-2">
-                        <div 
-                          className="bg-blue-600 h-2 rounded-full transition-all duration-300"
-                          style={{ width: `${goal.progress}%` }}
-                        ></div>
-                      </div>
-                    </div>
-                  </div>
-                  <button
-                    onClick={() => toggleGoalCompletion(goal.id)}
-                    className="ml-2 mt-1"
-                  >
-                    {goal.completed ? (
-                      <CheckCircle className="h-4 w-4 text-green-600" />
-                    ) : (
-                      <div className="h-4 w-4 border-2 border-gray-300 rounded-full"></div>
-                    )}
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Real-time Feedback */}
-        {feedback && (
-          <div className="p-4 border-b border-gray-200">
-            <h3 className="font-semibold text-gray-800 mb-3 flex items-center">
-              <MessageSquare className="h-5 w-5 mr-2" />
-              {t('feedback')}
-            </h3>
-            {feedback.positive.length > 0 && (
-              <div className="mb-2">
-                <p className="text-xs font-medium text-green-600 mb-1">{t('greatJob')}</p>
-                {feedback.positive.map((item, idx) => (
-                  <p key={idx} className="text-sm text-green-700 bg-green-50 p-2 rounded">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            )}
-            {feedback.corrections.length > 0 && (
-              <div className="mb-2">
-                <p className="text-xs font-medium text-orange-600 mb-1">{t('smallCorrections')}</p>
-                {feedback.corrections.map((item, idx) => (
-                  <p key={idx} className="text-sm text-orange-700 bg-orange-50 p-2 rounded">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            )}
-            {feedback.suggestions.length > 0 && (
-              <div>
-                <p className="text-xs font-medium text-blue-600 mb-1">{t('tryThis')}</p>
-                {feedback.suggestions.map((item, idx) => (
-                  <p key={idx} className="text-sm text-blue-700 bg-blue-50 p-2 rounded">
-                    {item}
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Quick Stats */}
-        <div className="flex-1 p-4">
-          <h3 className="font-semibold text-gray-800 mb-3 flex items-center">
-            <BarChart3 className="h-5 w-5 mr-2" />
-            {t('learningStats')}
-          </h3>
-          <div className="space-y-3">
-            <div>
-              <p className="text-sm text-gray-600 mb-1">{t('vocabularyGrowth')}</p>
-              <div className="flex items-end space-x-1 h-8">
-                {progressStats.vocabularyGrowth.slice(-5).map((value, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-blue-600 rounded-t"
-                    style={{ height: `${(value / 100) * 100}%`, width: '20%' }}
-                  ></div>
-                ))}
-              </div>
-            </div>
-            <div>
-              <p className="text-sm text-gray-600 mb-1">{t('grammarAccuracy')}</p>
-              <div className="flex items-end space-x-1 h-8">
-                {progressStats.grammarAccuracy.slice(-5).map((value, idx) => (
-                  <div
-                    key={idx}
-                    className="bg-green-600 rounded-t"
-                    style={{ height: `${value}%`, width: '20%' }}
-                  ></div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+                  : 'bg-white border border-gray-200 text-gray-800 hover:bg-gray-50 transition-colors cursor-pointer'
+              }`,
+              onClick: message.sender === 'tutor' ? () => toggleMessageTranslation(message.id) : undefined
+            },
+              message.sender === 'tutor' && React.createElement('div', {
+                className: "absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition-opacity"
+              }, React.createElement(Languages, { className: "h-3 w-3 text-gray-400" })),
+              
+              React.createElement('p', { className: "pr-4" },
+                message.sender === 'tutor' && translatedMessages.has(message.id) 
+                  ? message.englishTranslation || message.text
+                  : message.text
+              ),
+              
+              message.sender === 'tutor' && translatedMessages.has(message.id) && 
+                React.createElement('p', { className: "text-xs mt-1 text-gray-500 italic" }, t('englishTranslation')),
+              
+              React.createElement('p', {
+                className: `text-xs mt-1 ${message.sender === 'user' ? 'text-blue-100' : 'text-gray-500'}`
+              }, message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }))
+            )
+          )
+        ),
+        
+        isLoading && React.createElement('div', { className: "flex justify-start" },
+          React.createElement('div', { className: "bg-white border border-gray-200 rounded-lg px-4 py-2" },
+            React.createElement('div', { className: "flex items-center space-x-2" },
+              React.createElement('div', { className: "flex space-x-1" },
+                React.createElement('div', { className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce" }),
+                React.createElement('div', { className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce", style: { animationDelay: '0.1s' } }),
+                React.createElement('div', { className: "w-2 h-2 bg-gray-400 rounded-full animate-bounce", style: { animationDelay: '0.2s' } })
+              ),
+              React.createElement('span', { className: "text-sm text-gray-500" }, t('tutorThinking'))
+            )
+          )
+        ),
+        React.createElement('div', { ref: messagesEndRef })
+      ),
+      
+      // Input Area
+      React.createElement('div', { className: "bg-white border-t border-gray-200 p-4" },
+        React.createElement('div', { className: "flex space-x-2" },
+          React.createElement('input', {
+            type: "text",
+            value: currentMessage,
+            onChange: (e) => setCurrentMessage(e.target.value),
+            onKeyPress: (e) => e.key === 'Enter' && sendMessage(),
+            placeholder: `${t('typeMessagePlaceholder')} ${languages[selectedLanguage].name}...`,
+            className: "flex-1 px-4 py-2 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+            disabled: isLoading
+          }),
+          React.createElement('button', {
+            onClick: sendMessage,
+            disabled: isLoading || !currentMessage.trim(),
+            className: "px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+          }, React.createElement(Send, { className: "h-5 w-5" }))
+        )
+      )
+    ),
+    
+    // Sidebar (shortened for brevity - includes all the same sections)
+    React.createElement('div', { className: "w-80 bg-white border-l border-gray-200 flex flex-col" },
+      // Progress Overview
+      React.createElement('div', { className: "p-4 border-b border-gray-200" },
+        React.createElement('h3', { className: "font-semibold text-gray-800 mb-3 flex items-center" },
+          React.createElement(TrendingUp, { className: "h-5 w-5 mr-2" }),
+          t('progressOverview')
+        ),
+        React.createElement('div', { className: "space-y-2" },
+          React.createElement('div', { className: "flex justify-between text-sm" },
+            React.createElement('span', null, t('messages')),
+            React.createElement('span', { className: "font-medium" }, userProfile.totalMessages)
+          ),
+          React.createElement('div', { className: "flex justify-between text-sm" },
+            React.createElement('span', null, t('vocabulary')),
+            React.createElement('span', { className: "font-medium" }, `${userProfile.vocabularyCount.size} ${t('words')}`)
+          ),
+          React.createElement('div', { className: "flex justify-between text-sm" },
+            React.createElement('span', null, t('accuracy')),
+            React.createElement('span', { className: "font-medium" }, `${userProfile.grammarAccuracy}%`)
+          )
+        )
+      ),
+      
+      // Learning Goals
+      React.createElement('div', { className: "p-4 border-b border-gray-200" },
+        React.createElement('div', { className: "flex items-center justify-between mb-3" },
+          React.createElement('h3', { className: "font-semibold text-gray-800 flex items-center" },
+            React.createElement(Target, { className: "h-5 w-5 mr-2" }),
+            t('learningGoals')
+          ),
+          React.createElement('button', {
+            onClick: addCustomGoal,
+            className: "text-blue-600 hover:text-blue-700 text-sm font-medium"
+          }, t('addGoal'))
+        ),
+        React.createElement('div', { className: "space-y-2" },
+          learningGoals.map((goal) =>
+            React.createElement('div', { key: goal.id, className: "p-2 bg-gray-50 rounded-md" },
+              React.createElement('div', { className: "flex items-start justify-between" },
+                React.createElement('div', { className: "flex-1" },
+                  React.createElement('p', {
+                    className: `text-sm ${goal.completed ? 'line-through text-gray-500' : 'text-gray-700'}`
+                  }, goal.text),
+                  React.createElement('div', { className: "mt-1" },
+                    React.createElement('div', { className: "flex items-center justify-between text-xs text-gray-500 mb-1" },
+                      React.createElement('span', null, t('progress')),
+                      React.createElement('span', null, `${goal.progress}%`)
+                    ),
+                    React.createElement('div', { className: "w-full bg-gray-200 rounded-full h-2" },
+                      React.createElement('div', {
+                        className: "bg-blue-600 h-2 rounded-full transition-all duration-300",
+                        style: { width: `${goal.progress}%` }
+                      })
+                    )
+                  )
+                ),
+                React.createElement('button', {
+                  onClick: () => toggleGoalCompletion(goal.id),
+                  className: "ml-2 mt-1"
+                },
+                  goal.completed 
+                    ? React.createElement(CheckCircle, { className: "h-4 w-4 text-green-600" })
+                    : React.createElement('div', { className: "h-4 w-4 border-2 border-gray-300 rounded-full" })
+                )
+              )
+            )
+          )
+        )
+      ),
+      
+      // Real-time Feedback
+      feedback && React.createElement('div', { className: "p-4 border-b border-gray-200" },
+        React.createElement('h3', { className: "font-semibold text-gray-800 mb-3 flex items-center" },
+          React.createElement(MessageSquare, { className: "h-5 w-5 mr-2" }),
+          t('feedback')
+        ),
+        feedback.positive.length > 0 && React.createElement('div', { className: "mb-2" },
+          React.createElement('p', { className: "text-xs font-medium text-green-600 mb-1" }, t('greatJob')),
+          feedback.positive.map((item, idx) =>
+            React.createElement('p', {
+              key: idx,
+              className: "text-sm text-green-700 bg-green-50 p-2 rounded"
+            }, item)
+          )
+        ),
+        feedback.corrections.length > 0 && React.createElement('div', { className: "mb-2" },
+          React.createElement('p', { className: "text-xs font-medium text-orange-600 mb-1" }, t('smallCorrections')),
+          feedback.corrections.map((item, idx) =>
+            React.createElement('p', {
+              key: idx,
+              className: "text-sm text-orange-700 bg-orange-50 p-2 rounded"
+            }, item)
+          )
+        ),
+        feedback.suggestions.length > 0 && React.createElement('div', null,
+          React.createElement('p', { className: "text-xs font-medium text-blue-600 mb-1" }, t('tryThis')),
+          feedback.suggestions.map((item, idx) =>
+            React.createElement('p', {
+              key: idx,
+              className: "text-sm text-blue-700 bg-blue-50 p-2 rounded"
+            }, item)
+          )
+        )
+      ),
+      
+      // Quick Stats
+      React.createElement('div', { className: "flex-1 p-4" },
+        React.createElement('h3', { className: "font-semibold text-gray-800 mb-3 flex items-center" },
+          React.createElement(BarChart3, { className: "h-5 w-5 mr-2" }),
+          t('learningStats')
+        ),
+        React.createElement('div', { className: "space-y-3" },
+          React.createElement('div', null,
+            React.createElement('p', { className: "text-sm text-gray-600 mb-1" }, t('vocabularyGrowth')),
+            React.createElement('div', { className: "flex items-end space-x-1 h-8" },
+              progressStats.vocabularyGrowth.slice(-5).map((value, idx) =>
+                React.createElement('div', {
+                  key: idx,
+                  className: "bg-blue-600 rounded-t",
+                  style: { height: `${(value / 100) * 100}%`, width: '20%' }
+                })
+              )
+            )
+          ),
+          React.createElement('div', null,
+            React.createElement('p', { className: "text-sm text-gray-600 mb-1" }, t('grammarAccuracy')),
+            React.createElement('div', { className: "flex items-end space-x-1 h-8" },
+              progressStats.grammarAccuracy.slice(-5).map((value, idx) =>
+                React.createElement('div', {
+                  key: idx,
+                  className: "bg-green-600 rounded-t",
+                  style: { height: `${value}%`, width: '20%' }
+                })
+              )
+            )
+          )
+        )
+      )
+    )
   );
 };
 
-export default LanguageTutor;
+// Render the app to the DOM
+ReactDOM.render(React.createElement(LanguageTutor), document.getElementById('root'));
